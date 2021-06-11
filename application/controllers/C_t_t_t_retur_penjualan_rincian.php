@@ -156,12 +156,14 @@ class C_t_t_t_retur_penjualan_rincian extends MY_Controller
 
 
     $read_select = $this->m_t_t_t_retur_penjualan_rincian->select_barang_id_only_one($retur_penjualan_id,$barang_id);
-    foreach ($read_select as $key => $value) 
+    foreach ($read_select as $key => $value)
     {
       $r_qty = $value->QTY;
-      $r_harga = $value->HARGA;
       $r_sisa_qty = $value->SISA_QTY;
       $r_penjualan_rincian_id = $value->PENJUALAN_RINCIAN_ID;
+      $r_sub_total = $value->SUB_TOTAL;
+
+      $r_harga = $r_sub_total / $r_qty;
     }
 
     $sub_total = $qty * $r_harga;

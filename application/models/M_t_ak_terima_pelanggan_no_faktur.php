@@ -12,6 +12,7 @@ public function update($data, $id)
 }
 
 
+
 public function select_by_id($id)
   {
     $this->db->select("T_AK_TERIMA_PELANGGAN_NO_FAKTUR.ID");

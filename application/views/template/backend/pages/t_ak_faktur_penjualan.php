@@ -29,7 +29,9 @@
             <th>Date</th>
             <th>Pelanggan</th>
             <th>No Faktur</th>
-            <th>Total Tagihan</th>
+            <th>Penjualan</th>
+            <th>Retur Jual</th>
+            <th>Total</th>
             <th>PPN</th>
             <th>PPH</th>
             <th>Action</th>
@@ -45,11 +47,25 @@
             echo "<td>" . $value->NO_FAKTUR . "</td>";
             #echo "<td>".date('d-m-Y', strtotime($value->DATE))." / ".date('H:i', strtotime($value->TIME))." / ".$value->CREATED_BY."</td>";
 
+
+            echo "<td>";
+            
+            echo "Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+
+
+            echo "<td>";
+            
+            echo "Rp" . number_format(round($value->SUM_TOTAL_RETUR_PENJUALAN)) . "</td>";
+
+
+
+            $jumlah_akhir = round($value->SUM_TOTAL_PENJUALAN)-round($value->SUM_TOTAL_RETUR_PENJUALAN);
+
             echo "<td>";
             echo "<a href='" . site_url('c_t_ak_faktur_penjualan_rincian/index/' . $value->ID) . "/" . $value->PELANGGAN_ID . "' ";
             echo "onclick=\"return confirm('Isi Rincian?')\"";
             echo "> <i class='fa fa-search-plus text-c-blue'></i></a> ";
-            echo "Rp" . number_format(round($value->SUM_TOTAL_PENJUALAN)) . "</td>";
+            echo "Rp" . number_format(round($jumlah_akhir)) . "</td>";
 
 
             echo "<td>";

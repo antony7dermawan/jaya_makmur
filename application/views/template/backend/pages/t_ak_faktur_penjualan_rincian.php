@@ -52,8 +52,12 @@
             <th>Keterangan</th>
             <th>Tanggal Kirim</th>
             <th>INV Penjualan</th>
+
             
-            <th>Jumlah Tagihan</th>
+            <th>Jumlah Penjualan</th>
+
+            <th>Jumlah Retur Jual</th>
+            <th>Total</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -68,6 +72,12 @@
             echo "<td>" . $value->INV . "</td>";
             
             echo "<td>" . number_format(round($value->SUM_SUB_TOTAL)) . "</td>";
+
+            echo "<td>" . number_format(round($value->SUM_RETUR)) . "</td>";
+
+
+            $jumlah_akhir = round($value->SUM_SUB_TOTAL)-round($value->SUM_RETUR);
+            echo "<td>" . number_format(round($jumlah_akhir)) . "</td>";
 
 
             echo "<td>";

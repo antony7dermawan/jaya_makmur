@@ -13,6 +13,7 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
     $this->load->model('m_t_ak_faktur_penjualan');
   }
 
+
   public function index($id, $pks_id)
   {
     $data = [
@@ -55,12 +56,24 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
 
 
 
+
   function tambah($terima_pelanggan_id, $pks_id)
   {
     $faktur_penjualan_id = intval($this->input->post("faktur_penjualan_id"));
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($faktur_penjualan_id);
     foreach ($read_select as $key => $value) {
-      $sum_total_penjualan = intval(intval($value->SUM_TOTAL_PENJUALAN)*1.1);
+      $sum_total_penjualan = round($value->SUM_TOTAL_PENJUALAN);
+
+      $sum_total_retur_penjualan = round($value->SUM_TOTAL_RETUR_PENJUALAN);
+
+      $ppn = $value->PPN;
+      $pph = $value->PPH;
+    }
+
+    $total_all = $sum_total_penjualan-$sum_total_retur_penjualan;
+    if($ppn=='t')
+    {
+      $total_all = $total_all * 1.1;
     }
 
     $data = array(
@@ -68,7 +81,7 @@ class C_t_ak_terima_pelanggan_no_faktur extends MY_Controller
       'TERIMA_PELANGGAN_ID' => $terima_pelanggan_id,
       'CREATED_BY' => $this->session->userdata('username'),
       'UPDATED_BY' => $this->session->userdata('username'),
-      'TOTAL_PENJUALAN' => $sum_total_penjualan
+      'TOTAL_PENJUALAN' => $total_all
     );
 
     $this->m_t_ak_terima_pelanggan_no_faktur->tambah($data);

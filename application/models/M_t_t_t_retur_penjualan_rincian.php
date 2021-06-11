@@ -172,7 +172,7 @@ public function update($data, $id)
     $this->db->select('T_T_T_PENJUALAN_RINCIAN.QTY');
     $this->db->select('T_T_T_PENJUALAN_RINCIAN.HARGA');
     $this->db->select('T_T_T_PENJUALAN_RINCIAN.SISA_QTY');
-
+    $this->db->select('T_T_T_PENJUALAN_RINCIAN.SUB_TOTAL');
 
 
 
