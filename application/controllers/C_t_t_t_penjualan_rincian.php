@@ -43,6 +43,7 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
 
 
 
+
       "c_t_m_d_barang" => $this->m_t_m_d_barang->select(),
       
       "penjualan_id" => $penjualan_id,
@@ -127,9 +128,9 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
     }
     */
 
-    $sub_total_1 = ($qty * $harga_jual) - (($qty * $harga_jual * $diskon_p_1)/100);
+    $sub_total_1 = ($harga_jual) - (($harga_jual * $diskon_p_1)/100);
     $sub_total_2 = ($sub_total_1) - (($sub_total_1 * $diskon_p_2)/100);
-    $sub_total = $sub_total_2 - $diskon_harga;
+    $sub_total = ($sub_total_2 - $diskon_harga) * $qty;
 
 
 

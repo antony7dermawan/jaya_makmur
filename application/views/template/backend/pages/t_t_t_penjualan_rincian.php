@@ -392,9 +392,9 @@ function mycode() {
   var diskon_p_2 = document.getElementById("diskon_p_2_id").value;
   var diskon_harga = document.getElementById("diskon_harga_id").value;
 
-  var sub_total_1 = (qty*harga_jual) - ((diskon_p_1*harga_jual*qty)/100);
+  var sub_total_1 = (harga_jual) - ((diskon_p_1*harga_jual)/100);
   var sub_total_2 = (sub_total_1) - ((diskon_p_2*sub_total_1)/100);
-  var sub_total_3 = (sub_total_2) - diskon_harga;
+  var sub_total_3 = (sub_total_2 - diskon_harga) * qty;
   
 
   var bilangan = sub_total_3;

@@ -28,6 +28,7 @@ class c_faktur_penjualan_print extends MY_Controller
 
 
 
+
     $pdf->SetFont('','',12);
 
     $read_select = $this->m_t_ak_faktur_penjualan->select_by_id($id);
@@ -96,21 +97,23 @@ class c_faktur_penjualan_print extends MY_Controller
 
         $pdf->Cell( 100,3,'','0',1,'L');
 
-        $pdf->SetFont('','B',13);
+        $pdf->SetFont('','B',11);
         $size[0]=10;
-        $size[1]=40;
+        $size[1]=30;
         $size[2]=30;
-        $size[3]=35;
+        $size[3]=45;
         $size[4]=25;
-        $size[5]=20;
-        $size[6]=30;
+        $size[5]=25;
+        $size[6]=25;
         
         $pdf->Cell( $size[0],8,'No.','1',0,'C');
         $pdf->Cell( $size[1],8,'Keterangan','1',0,'C');
         $pdf->Cell( $size[2],8,'Tgl Kirim','1',0,'C');
-        $pdf->Cell( $size[3]+$size[4],8,'No. Tiket','1',0,'C');
+        $pdf->Cell( $size[3],8,'No. Tiket','1',0,'C');
 
-        $pdf->Cell( $size[5]+$size[6],8,'Jumlah','1',1,'C');
+        $pdf->Cell( $size[4],8,'Penjualan','1',0,'C');
+        $pdf->Cell( $size[5],8,'Retur','1',0,'C');
+        $pdf->Cell( $size[6],8,'Total','1',1,'C');
       }
       
       
@@ -118,12 +121,17 @@ class c_faktur_penjualan_print extends MY_Controller
       $pdf->Cell( $size[0],6,$key+1,'L',0,'C');
       $pdf->Cell( $size[1],6,$value->KETERANGAN,'L',0,'L');
       $pdf->Cell( $size[2],6,date('d-m-Y', strtotime($value->DATE)),'L',0,'C');
-      $pdf->Cell( $size[3]+$size[4],6,$value->INV,'L',0,'C');
-      $pdf->Cell( $size[5]+$size[6]-0.1,6,number_format(round($value->SUM_SUB_TOTAL)),'L',0,'R');
+      $pdf->Cell( $size[3],6,$value->INV,'L',0,'C');
+      $pdf->Cell( $size[4],6,number_format(round($value->SUM_SUB_TOTAL)),'L',0,'R');
+      $pdf->Cell( $size[5],6,number_format(round($value->SUM_RETUR)),'L',0,'R');
+
+      $sub_total = round($value->SUM_SUB_TOTAL) - round($value->SUM_RETUR);
+      $pdf->Cell( $size[6]-0.1,6,number_format(round($sub_total)),'L',0,'R');
       $pdf->Cell( 0.1,6,'','L',1,'R');
 
       $total_kuantitas = $total_kuantitas+round($value->SUM_SUB_TOTAL);
-      $total_sub = $total_sub+round($value->SUM_SUB_TOTAL);
+
+      $total_sub = $total_sub+$sub_total;
       $dpp = $total_sub;
     }
 
@@ -132,9 +140,11 @@ class c_faktur_penjualan_print extends MY_Controller
       $pdf->Cell( $size[0],6,'','L',0,'C');
       $pdf->Cell( $size[1],6,'','L',0,'L');
       $pdf->Cell( $size[2],6,'','L',0,'C');
-      $pdf->Cell( $size[3]+$size[4],6,'','L',0,'C');
+      $pdf->Cell( $size[3],6,'','L',0,'C');
+      $pdf->Cell( $size[4],6,'','L',0,'C');
+      $pdf->Cell( $size[5],6,'','L',0,'C');
 
-      $pdf->Cell( $size[5]+$size[6]-0.1,6,'','L',0,'R');
+      $pdf->Cell( $size[6]-0.1,6,'','L',0,'R');
       $pdf->Cell( 0.1,6,'','L',1,'R'); 
     }
 
