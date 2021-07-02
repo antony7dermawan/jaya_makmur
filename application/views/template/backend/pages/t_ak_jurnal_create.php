@@ -41,7 +41,7 @@
     <?= $this->session->flashdata('notif') ?>
     <!-- Tombol untuk menambah data akun !-->
     <?php
-    if($this->session->userdata('now_no_voucer')!='')
+    if($this->session->userdata('now_no_voucer')!='' or $disabled == 'disabled')
     {
       echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
     }

@@ -54,6 +54,10 @@ public function select_date($pelanggan_id,$from_date,$to_date)
 
     $this->db->select("T_M_D_PAYMENT_METHOD.PAYMENT_METHOD");
     $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
+    $this->db->select("T_M_D_PELANGGAN.ALAMAT");
+    $this->db->select("T_M_D_PELANGGAN.NPWP");
+    $this->db->select("T_M_D_PELANGGAN.NO_TELP");
+
 
     $this->db->select("T_M_D_SALES.SALES");
     $this->db->select("T_M_D_NO_POLISI.NO_POLISI");

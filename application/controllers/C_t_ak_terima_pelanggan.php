@@ -29,6 +29,16 @@ class C_t_ak_terima_pelanggan extends MY_Controller
 
   public function index()
   {
+
+
+    $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
+    
+    if($this->session->userdata('date_terima_pelanggan')=='')
+    {
+      $date_terima_pelanggan = date('Y-m-d');
+      $this->session->set_userdata('date_terima_pelanggan', $date_terima_pelanggan);
+    }
+
     $data = [
       "c_t_ak_terima_pelanggan" => $this->m_t_ak_terima_pelanggan->select($this->session->userdata('date_terima_pelanggan')),
      

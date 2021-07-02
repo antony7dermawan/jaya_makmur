@@ -20,6 +20,7 @@ class C_t_t_t_penjualan extends MY_Controller
 
     $this->load->model('m_t_m_d_barang');
     $this->load->model('m_t_m_d_lokasi');
+    $this->load->model('m_t_ak_faktur_penjualan');
   }
 
   public function index()
@@ -32,9 +33,19 @@ class C_t_t_t_penjualan extends MY_Controller
     $this->session->set_userdata('t_m_d_supir_delete_logic', '0');
     $this->session->set_userdata('t_m_d_lokasi_delete_logic', '0');
 
+
+    if($this->session->userdata('date_penjualan')=='')
+    {
+      $date_penjualan = date('Y-m-d');
+      $this->session->set_userdata('date_penjualan', $date_penjualan);
+    }
+
+
     $data = [
       "c_t_t_t_penjualan" => $this->m_t_t_t_penjualan->select($this->session->userdata('date_penjualan')),
 
+      
+      
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
       "c_t_m_d_payment_method" => $this->m_t_m_d_payment_method->select(),
       "c_t_m_d_pelanggan" => $this->m_t_m_d_pelanggan->select(),

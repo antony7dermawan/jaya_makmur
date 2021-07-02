@@ -25,7 +25,12 @@ class C_t_ak_faktur_penjualan extends MY_Controller
   {
     $this->session->set_userdata('t_m_d_pelanggan_delete_logic', '0');
 
-
+    if($this->session->userdata('date_faktur_penjualan')=='')
+    {
+      $date_faktur_penjualan = date('Y-m-d');
+      $this->session->set_userdata('date_faktur_penjualan', $date_faktur_penjualan);
+    }
+    
     $data = [
       "c_t_ak_faktur_penjualan" => $this->m_t_ak_faktur_penjualan->select($this->session->userdata('date_faktur_penjualan')),
 

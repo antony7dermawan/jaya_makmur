@@ -20,6 +20,7 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
     $this->load->model('m_t_m_d_barang');
     
     $this->load->model('m_t_t_t_pembelian_rincian'); 
+    $this->load->model('m_t_ak_faktur_penjualan');
   }
 
   public function index($penjualan_id)
@@ -31,15 +32,22 @@ class C_t_t_t_penjualan_rincian extends MY_Controller
     $this->session->set_userdata('master_barang_kategori_id', '0');
     $this->session->set_userdata('master_barang_company_id', $this->session->userdata('company_id'));
 
+    $read_select = $this->m_t_t_t_penjualan->select_by_id($penjualan_id);
+    foreach ($read_select as $key => $value) 
+    {
+      $pelanggan_id = $value->PELANGGAN_ID;
+      $date_penjualan = $value->DATE;
+    }
+
 
     $data = [
-      //"select_barang_with_supplier" => $this->m_t_t_t_pembelian_rincian->select_barang_with_supplier(),
+      
       "c_t_t_t_penjualan_rincian" => $this->m_t_t_t_penjualan_rincian->select($penjualan_id),
 
       "c_t_t_t_penjualan_by_id" => $this->m_t_t_t_penjualan->select_by_id($penjualan_id),
 
 
-
+      "read_suspend" => $this->m_t_ak_faktur_penjualan->select_read_suspend($pelanggan_id,$date_penjualan),
 
 
 

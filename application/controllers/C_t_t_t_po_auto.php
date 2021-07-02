@@ -19,6 +19,13 @@ class C_t_t_t_po_auto extends MY_Controller
   public function index()
   {
     $this->session->set_userdata('t_t_t_po_auto_delete_logic', '1');
+
+    if($this->session->userdata('date_po_auto')=='')
+    {
+      $date_po_auto = date('Y-m-d');
+      $this->session->set_userdata('date_po_auto', $date_po_auto);
+    }
+    
     $data = [
       "c_t_t_t_po_auto" => $this->m_t_t_t_po_auto->select($this->session->userdata('date_po_auto')),
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),

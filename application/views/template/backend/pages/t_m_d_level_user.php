@@ -5,8 +5,8 @@
   <div class="card-block">
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
-    <!-- Tombol untuk menambah data akun 
-    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button> !-->
+   
+    <button data-toggle="modal" data-target="#addModal" class="btn btn-success waves-effect waves-light">New Data</button>
 
     <div class="table-responsive dt-responsive">
       <table id="dom-jqry" class="table table-striped table-bordered nowrap">

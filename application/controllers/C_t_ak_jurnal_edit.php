@@ -93,6 +93,13 @@ class C_t_ak_jurnal_edit extends MY_Controller
 
       $this->m_t_ak_jurnal_edit->tambah($data);
 
+
+      $data = array(
+        'DATE' => $date
+      );
+
+      $this->m_t_ak_jurnal_edit->update_all($data);
+
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     }
 
@@ -247,6 +254,14 @@ class C_t_ak_jurnal_edit extends MY_Controller
     );
 
     $this->m_t_ak_jurnal_edit->update($data, $id);
+
+
+    $data = array(
+        'DATE' => $date
+    );
+    $this->m_t_ak_jurnal_edit->update_all($data);
+
+    
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_jurnal_edit');
   }

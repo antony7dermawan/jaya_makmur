@@ -74,6 +74,69 @@ public function select_no_faktur()
 }
 
 
+
+
+
+
+
+
+public function select_read_suspend($pelanggan_id,$date_penjualan)
+{
+
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.ID");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.DATE");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.TIME");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PELANGGAN_ID");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.CREATED_BY");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.UPDATED_BY");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.KETERANGAN");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.NO_FAKTUR");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.ENABLE_EDIT");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PPN");
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PPH");
+
+
+    $this->db->select("T_M_D_PELANGGAN.ID as PELANGGAN_ID");
+    $this->db->select("T_M_D_PELANGGAN.PELANGGAN");
+
+    $this->db->select("T_M_D_PELANGGAN.ALAMAT");
+    $this->db->select("T_M_D_PELANGGAN.NPWP");
+    $this->db->select("T_M_D_PELANGGAN.NIK");
+    $this->db->select("T_M_D_PELANGGAN.NO_TELP");
+
+
+    $this->db->select("T_AK_FAKTUR_PENJUALAN.PAYMENT_T");
+
+    $this->db->select("SUM_TOTAL_PENJUALAN");
+
+
+    $this->db->from("T_AK_FAKTUR_PENJUALAN");
+    $this->db->join('T_AK_TERIMA_PELANGGAN_NO_FAKTUR', 'T_AK_TERIMA_PELANGGAN_NO_FAKTUR.FAKTUR_PENJUALAN_ID = T_AK_FAKTUR_PENJUALAN.ID', 'left');
+
+    $this->db->join('T_M_D_PELANGGAN', 'T_M_D_PELANGGAN.ID = T_AK_FAKTUR_PENJUALAN.PELANGGAN_ID', 'left');
+
+
+    $this->db->join("(select \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"FAKTUR_PENJUALAN_ID\",sum(\"T_T_T_PENJUALAN_RINCIAN\".\"SUB_TOTAL\") as \"SUM_TOTAL_PENJUALAN\" from \"T_T_T_PENJUALAN_RINCIAN\"LEFT OUTER JOIN \"T_T_T_PENJUALAN\" ON \"T_T_T_PENJUALAN\".\"ID\"=\"T_T_T_PENJUALAN_RINCIAN\".\"PENJUALAN_ID\" LEFT OUTER JOIN \"T_AK_FAKTUR_PENJUALAN_RINCIAN\" ON \"T_AK_FAKTUR_PENJUALAN_RINCIAN\".\"PENJUALAN_ID\" = \"T_T_T_PENJUALAN\".\"ID\" where \"T_T_T_PENJUALAN_RINCIAN\".\"MARK_FOR_DELETE\"=false group by \"FAKTUR_PENJUALAN_ID\") as t_sum", 'T_AK_FAKTUR_PENJUALAN.ID = t_sum.FAKTUR_PENJUALAN_ID', 'left');
+
+
+    $this->db->where('SUM_TOTAL_PENJUALAN>T_AK_FAKTUR_PENJUALAN.PAYMENT_T');
+    $this->db->where("T_AK_FAKTUR_PENJUALAN.COMPANY_ID={$this->session->userdata('company_id')}");
+
+    $this->db->where("T_AK_FAKTUR_PENJUALAN.PELANGGAN_ID={$pelanggan_id}");
+
+    $date_before = date('Y-m-d',(strtotime ( '-60 day' , strtotime ( $date_penjualan) ) ));
+
+    $this->db->where("T_AK_FAKTUR_PENJUALAN.DATE<='{$date_before}' ");
+
+
+    $akun = $this->db->get ();
+    return $akun->result ();
+}
+
+
+
+
  public function read_no_faktur($no_faktur)
  {
     $this->db->select("NO_FAKTUR");

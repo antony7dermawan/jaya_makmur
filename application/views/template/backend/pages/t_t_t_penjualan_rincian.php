@@ -17,6 +17,14 @@
 
 
       echo 'No INV: '.$inv;
+
+
+      
+      $suspended = 0;
+      foreach ($read_suspend as $key => $value) {
+        $suspended = 1;
+        $pelanggan = $value->PELANGGAN;
+      }
       ?>
 
 
@@ -27,13 +35,21 @@
     <!-- Menampilkan notif !-->
     <?= $this->session->flashdata('notif') ?>
 
+    <?php
+    if($suspended==1)
+    {
+      echo "<div class='alert alert-danger icons-alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><i class='icofont icofont-close-line-circled'></i></button><p><strong>Warning!</strong> {$pelanggan} Belum Membayar Faktur Penjualan 2 Bulan yang Lalu!</p></div>";
+    }
+    ?>
+
     <a href="<?= base_url("c_t_t_t_penjualan"); ?>" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-double-left"></i>Back</a>
     <!-- Tombol untuk menambah data akun !-->
     <?php
-    if($enable_edit==1)
+    if($enable_edit==1 and ($suspended==0 or $level_user_id==1))
     {
       echo "<button data-toggle='modal' data-target='#addModal' class='btn btn-success waves-effect waves-light'>New Data</button>";
     }
+    
     ?>
     
 

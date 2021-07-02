@@ -172,7 +172,7 @@ if($level_user_id==1)
 
             <?php
             }
-            if($level_user_id==1 or $level_user_id==2 or $level_user_id==4)
+            if($level_user_id==1 or $level_user_id==2 or $level_user_id==10)
             {
 
             ?>

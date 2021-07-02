@@ -24,6 +24,14 @@ class C_t_t_t_po_manual extends MY_Controller
 
     
     $this->session->set_userdata('t_t_t_po_manual_delete_logic', '1');
+
+
+    if($this->session->userdata('date_po_manual')=='')
+    {
+      $date_po_manual = date('Y-m-d');
+      $this->session->set_userdata('date_po_manual', $date_po_manual);
+    }
+    
     $data = [
       "c_t_t_t_po_manual" => $this->m_t_t_t_po_manual->select($this->session->userdata('date_po_manual')),
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),

@@ -11,6 +11,11 @@ public function update($data, $id)
 }
 
 
+public function update_all($data)
+{
+  $this->db->where('CREATED_BY',$this->session->userdata('username'));
+  return $this->db->update('T_AK_JURNAL_EDIT', $data);
+}
 
 
 

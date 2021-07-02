@@ -93,7 +93,17 @@ class C_t_ak_jurnal_create extends MY_Controller
     $no_voucer = $this->session->userdata('now_no_voucer');
     $date = $this->input->post("date");
 
-    if ($this->session->userdata('now_no_voucer') != '') 
+
+
+
+    $read_select = $this->m_t_ak_jurnal_create->select();
+    foreach ($read_select as $key => $value) {
+      if ($key == 0) {
+        $no_voucer = $value->NO_VOUCER;
+      }
+    }
+
+    if ($no_voucer != '') 
     {
       $data = array(
         'DATE' => $date,
@@ -111,9 +121,16 @@ class C_t_ak_jurnal_create extends MY_Controller
 
       $this->m_t_ak_jurnal_create->tambah($data);
 
+
+      $data = array(
+        'DATE' => $date
+      );
+
+      $this->m_t_ak_jurnal_create->update_all($data);
+
       $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Ditambahkan!</strong></p></div>');
     }
-    if ($this->session->userdata('now_no_voucer') == '') {
+    if ($no_voucer == '') {
       $this->session->set_flashdata('notif', '<div class="alert alert-danger icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="icofont icofont-close-line-circled"></i></button><p><strong>GAGAL!</strong> NO VOUCER BELUM DIISI!</p></div>');
     }
 
@@ -260,6 +277,16 @@ class C_t_ak_jurnal_create extends MY_Controller
     );
 
     $this->m_t_ak_jurnal_create->update($data, $id);
+
+
+    $data = array(
+      'DATE' => $date
+    );
+
+    $this->m_t_ak_jurnal_create->update_all($data);
+
+
+
     $this->session->set_flashdata('notif', '<div class="alert alert-info icons-alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="icofont icofont-close-line-circled"></i></button><p><strong>Data Berhasil Diupdate!</strong></p></div>');
     redirect('/c_t_ak_jurnal_create');
   }

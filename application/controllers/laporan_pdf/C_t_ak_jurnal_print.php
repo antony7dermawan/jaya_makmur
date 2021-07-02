@@ -32,13 +32,13 @@ class c_t_ak_jurnal_print extends MY_Controller
 
 
     $pdf->SetFont('','B',12);
-    $pdf->Cell(90, 9, "CV. JAYA MAKMUR", 0, 0, 'L');
+    $pdf->Cell(90, 9, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
 
     $pdf->SetFont('','B',18);
     $pdf->Cell(90, 9, "Bukti Jurnal", 0, 1, 'R');
 
 
-    $pdf->SetFont('','',12);
+    $pdf->SetFont('','',10);
 
 
     $read_select = $this->m_t_ak_jurnal->select_created_id($created_id);
@@ -72,9 +72,9 @@ class c_t_ak_jurnal_print extends MY_Controller
 
 
     $pdf->Cell(30, 6, "No Voucer", 1, 0, 'C');
-    $pdf->Cell(40, 6, $no_voucer, 1, 1, 'L');
+    $pdf->Cell(60, 6, $no_voucer, 1, 1, 'L');
     $pdf->Cell(30, 6, "Tanggal", 1, 0, 'C');
-    $pdf->Cell(40, 6, $tanggal, 1, 1, 'L');
+    $pdf->Cell(60, 6, $tanggal, 1, 1, 'L');
 
 
     $pdf->Cell(30, 1, "", 0, 1, 'C');
@@ -90,15 +90,26 @@ class c_t_ak_jurnal_print extends MY_Controller
     $total_debit=0;
     $total_kredit=0;
     $total_baris_1_bon = 6;
+
+    $total_kertas = 1;
+
     for($i=0;$i<=$total_akun;$i++)
     {
       $rmd=(float)($i/$total_baris_1_bon);
       $rmd=($rmd-(int)$rmd)*$total_baris_1_bon;
-      if($i>=$total_baris_1_bon and $rmd==0)
+
+
+      $rmd2=(float)($total_kertas/2);
+      $rmd2=($rmd2-(int)$rmd2)*2;
+
+
+      if($i>=$total_baris_1_bon and $rmd==0 and $rmd2==0 and $total_kertas>0)
       {
         $pdf->SetPrintHeader(false);
         $pdf->SetPrintFooter(false);
         $pdf->AddPage('P', 'mm', 'A4');
+        $total_kertas = $total_kertas +1;
+
         $pdf->SetFont('','B',12);
         $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
         $pdf->SetFont('','B',18);
@@ -120,13 +131,48 @@ class c_t_ak_jurnal_print extends MY_Controller
         $pdf->Cell(50, 6, "Catatan", 1, 1, 'C');
 
       }
-      $pdf->SetFont('','',10);
+
+
+
+      if($i>=$total_baris_1_bon and $rmd==0 and $rmd2==1)
+      {
+
+        $pdf->Cell(40, 60, '', '0', 1, 'L');
+
+        $total_kertas = $total_kertas +1;
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);
+        
+
+
+        $pdf->SetFont('','B',12);
+        $pdf->Cell(90, 11, "PT. JO PERDANA AGRI TECHNOLOGY", 0, 0, 'L');
+        $pdf->SetFont('','B',18);
+        $pdf->Cell(90, 11, "Bukti Jurnal", 0, 1, 'R');
+        $pdf->SetFont('','',12);
+
+        $pdf->Cell(30, 6, "No Voucer", 1, 0, 'C');
+        $pdf->Cell(40, 6, $no_voucer, 1, 1, 'L');
+        $pdf->Cell(30, 6, "Tanggal", 1, 0, 'C');
+        $pdf->Cell(40, 6, $tanggal, 1, 1, 'L');
+
+
+        $pdf->Cell(30, 1, "", 0, 1, 'C');
+
+        $pdf->Cell(25, 6, "No. Akun:", 1, 0, 'C');
+        $pdf->Cell(50, 6, "Nama Akun", 1, 0, 'C');
+        $pdf->Cell(30, 6, "Debit", 1, 0, 'C');
+        $pdf->Cell(30, 6, "Kredit", 1, 0, 'C');
+        $pdf->Cell(50, 6, "Catatan", 1, 1, 'C');
+
+      }
+      $pdf->SetFont('','',8);
 
       $pdf->MultiCell(25, 8, $no_akun[$i], 'L', 'L',0,0);
-      $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 40), 'L', 'L',0,0);
+      $pdf->MultiCell(50, 8, substr($nama_akun[$i], 0, 60), 'L', 'L',0,0);
       $pdf->MultiCell(30, 8, number_format(intval($debit[$i])), 'L', 'C',0,0);
       $pdf->MultiCell(30, 8, number_format(intval($kredit[$i])), 'L', 'C',0,0);
-      $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 40), 'L', 'L',0,0);
+      $pdf->MultiCell(50, 8, substr($catatan[$i], 0, 60), 'L', 'L',0,0);
       $pdf->Cell(0.01, 8, "", 'L', 1, 'C');
 
       $total_debit=$total_debit+intval($debit[$i]);

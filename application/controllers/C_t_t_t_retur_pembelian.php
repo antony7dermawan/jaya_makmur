@@ -18,6 +18,13 @@ class C_t_t_t_retur_pembelian extends MY_Controller
   public function index()
   {
     $this->session->set_userdata('t_t_t_retur_pembelian_delete_logic', '1');
+
+    if($this->session->userdata('date_retur_pembelian')=='')
+    {
+      $date_retur_pembelian = date('Y-m-d');
+      $this->session->set_userdata('date_retur_pembelian', $date_retur_pembelian);
+    }
+    
     $data = [
       "c_t_t_t_retur_pembelian" => $this->m_t_t_t_retur_pembelian->select($this->session->userdata('date_retur_pembelian')),
       "c_t_m_d_company" => $this->m_t_m_d_company->select(),
