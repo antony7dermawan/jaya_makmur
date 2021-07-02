@@ -120,7 +120,7 @@
             </div>
 
             <div class="form-group">
-              <label>Inv Retur Penjaulan</label>
+              <label>Inv Retur Penjualan</label>
               <input type='text' class='form-control' placeholder='Input Text' name='inv_rj'>
             </div>
 
@@ -196,7 +196,7 @@
             </div>
 
             <div class="form-group">
-              <label>Inv Retur Penjaulan</label>
+              <label>Inv Retur Penjualan</label>
               <input type='text' class='form-control' placeholder='Input Text' name='inv_rj'>
             </div>
 
