@@ -1,3 +1,7 @@
+<?php
+  $level_user_id = $this->session->userdata('level_user_id');
+?>
+
 <div class="card">
   <div class="card-header">
     
@@ -6,35 +10,43 @@
 
       <select name="pilih_laporan" class='pilih_laporan' id='id_pilih_laporan' placeholder='Pick a state...'>
         <?php
-        echo "<option value='laporan_excel/lap_beli/index/' >Laporan Pembelian</option>";
 
-        echo "<option value='laporan_excel/lap_rb/index/' >Laporan Retur Pembelian</option>";
+        if($level_user_id == 1)
+        {
+          echo "<option value='laporan_excel/lap_beli/index/' >Laporan Pembelian</option>";
 
-        echo "<option value='laporan_excel/lap_beli_kredit/index/' >Laporan Pembelian (Hanya Kredit)</option>";
+          echo "<option value='laporan_excel/lap_rb/index/' >Laporan Retur Pembelian</option>";
 
+          echo "<option value='laporan_excel/lap_beli_kredit/index/' >Laporan Pembelian (Hanya Kredit)</option>";
 
-
-
-
-        echo "<option value='laporan_excel/lap_jual/index/' >Laporan Penjualan</option>";
-
-        echo "<option value='laporan_excel/lap_rj/index/' >Laporan Retur Penjualan</option>";
-        
-        echo "<option value='laporan_excel/lap_jual_kredit/index/' >Laporan Penjualan (Hanya Kredit)</option>";
-
+          echo "<option value='laporan_excel/lap_flow_barang_per_item/index/' >Laporan Flow Barang (per Item)</option>";
+          echo "<option value='laporan_excel/lap_flow_barang_per_kategori/index/' >Laporan Flow Barang (per Kategori)</option>";
+        }
         
 
-        echo "<option value='laporan_excel/lap_flow_barang_per_item/index/' >Laporan Flow Barang (per Item)</option>";
-        echo "<option value='laporan_excel/lap_flow_barang_per_kategori/index/' >Laporan Flow Barang (per Kategori)</option>";
-        echo "<option value='laporan_excel/lap_ranking_sales/index/' >Laporan Ranking Sales</option>";
-        echo "<option value='laporan_excel/lap_ranking_pelanggan/index/' >Laporan Ranking Pelanggan</option>";
 
 
-        echo "<option value='laporan_excel/lap_penjualan_per_sales/index/' >Laporan Penjualan Per Sales</option>";
+        if($level_user_id == 1 or $level_user_id == 10)
+        {
+
+          echo "<option value='laporan_excel/lap_jual/index/' >Laporan Penjualan</option>";
+
+          echo "<option value='laporan_excel/lap_rj/index/' >Laporan Retur Penjualan</option>";
+          
+          echo "<option value='laporan_excel/lap_jual_kredit/index/' >Laporan Penjualan (Hanya Kredit)</option>";
+
+          
+
+          
+          echo "<option value='laporan_excel/lap_ranking_sales/index/' >Laporan Ranking Sales</option>";
+          echo "<option value='laporan_excel/lap_ranking_pelanggan/index/' >Laporan Ranking Pelanggan</option>";
 
 
-        echo "<option value='laporan_excel/lap_penjualan_per_pelanggan/index/' >Laporan Penjualan Per Pelanggan</option>";
+          echo "<option value='laporan_excel/lap_penjualan_per_sales/index/' >Laporan Penjualan Per Sales</option>";
 
+
+          echo "<option value='laporan_excel/lap_penjualan_per_pelanggan/index/' >Laporan Penjualan Per Pelanggan</option>";
+        }
 
         ?>
       </select>

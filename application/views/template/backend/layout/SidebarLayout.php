@@ -36,8 +36,9 @@
 
 <?php
 $level_user_id = $this->session->userdata('level_user_id');
-if($level_user_id==1)
+if($level_user_id==1 or $level_user_id==10)
 {
+    
     ?>
     
 
@@ -47,6 +48,11 @@ if($level_user_id==1)
             <span class="pcoded-mtext" href="<?= base_url("c_t_login_user"); ?>">Master Data</span>
         </a>
         <ul class="pcoded-submenu">
+
+            <?php
+            if($level_user_id==1)
+            {
+            ?>
             <li class="">
                 <a href="<?= base_url("c_t_m_d_company"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Company</span>
@@ -97,12 +103,7 @@ if($level_user_id==1)
                     <span class="pcoded-mtext">Nama Supplier</span>
                 </a>
             </li>
-            <li class="">
-                <a href="<?= base_url("c_t_m_d_pelanggan"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">Nama Pelanggan</span>
-                </a>
-            </li>
-
+            
             <li class="">
                 <a href="<?= base_url("c_t_m_d_payment_method"); ?>" class="submenu waves-effect waves-dark">
                     <span class="pcoded-mtext">Payment Method</span>
@@ -114,6 +115,23 @@ if($level_user_id==1)
                     <span class="pcoded-mtext">Lokasi</span>
                 </a>
             </li>
+
+            <?php
+            }
+
+            if($level_user_id==10)
+            {
+            ?>
+            <li class="">
+                <a href="<?= base_url("c_t_m_d_pelanggan"); ?>" class="submenu waves-effect waves-dark">
+                    <span class="pcoded-mtext">Nama Pelanggan</span>
+                </a>
+            </li>
+            <?php
+            }
+            ?>
+
+            
 
         </ul>
     </li>
@@ -248,7 +266,7 @@ if($level_user_id==1)
 
 
 <?php
-if($level_user_id==1 )
+if($level_user_id==1 or $level_user_id==10)
 {
     ?>
     <li class="pcoded-hasmenu">
@@ -431,14 +449,20 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
         <?php
         if($level_user_id==1 or $level_user_id==2 or $level_user_id==5 or $level_user_id==6 or $level_user_id==10)
         {
+            if($level_user_id!=10)
+            {
+                ?>
+                <ul class="pcoded-submenu">
+                <li class="">
+                    <a href="<?= base_url("c_t_ak_jurnal_history"); ?>" class="submenu waves-effect waves-dark">
+                        <span class="pcoded-mtext">History Jurnal</span>
+                    </a>
+                </li>
+                </ul>
+            <?php
+            }
             ?>
-            <ul class="pcoded-submenu">
-            <li class="">
-                <a href="<?= base_url("c_t_ak_jurnal_history"); ?>" class="submenu waves-effect waves-dark">
-                    <span class="pcoded-mtext">History Jurnal</span>
-                </a>
-            </li>
-            </ul>
+            
             <ul class="pcoded-submenu">
                 <li class="">
                     <a href="<?= base_url("c_t_ak_faktur_penjualan"); ?>" class="submenu waves-effect waves-dark">
@@ -446,6 +470,11 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
                     </a>
                 </li>
             </ul>
+
+            <?php
+            if($level_user_id!=10)
+            {
+                ?>
             <ul class="pcoded-submenu">
                 <li class="">
                     <a href="<?= base_url("c_t_ak_terima_pelanggan"); ?>" class="submenu waves-effect waves-dark">
@@ -454,6 +483,7 @@ if($level_user_id==1 or $level_user_id==2 or $level_user_id==4 or $level_user_id
                 </li>
             </ul>
             <?php
+            }
         }
 
         ?>
@@ -490,7 +520,6 @@ if($level_user_id==1)
     
     <?php
 }
-
 ?>
 
 
