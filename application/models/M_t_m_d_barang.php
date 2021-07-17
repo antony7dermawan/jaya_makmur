@@ -27,6 +27,7 @@ public function select_by_kategori($kategori_id)
   $this->db->where('KATEGORI_ID', $kategori_id);
   $this->db->where('MARK_FOR_DELETE',FALSE);
 
+  $this->db->where('COMPANY_ID',$this->session->userdata('company_id'));
   $this->db->order_by("BARANG", "asc");
   $akun = $this->db->get ();
   return $akun->result ();
