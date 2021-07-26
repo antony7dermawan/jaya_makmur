@@ -39,6 +39,17 @@ class C_t_ak_jurnal extends MY_Controller
     $date_to_select_jurnal = ($this->input->post("date_to_select_jurnal"));
     $this->session->set_userdata('date_to_select_jurnal', $date_to_select_jurnal);
 
+    $date1 = strtotime($date_from_select_jurnal);
+    $date2 = strtotime($date_to_select_jurnal);
+
+    $hourDiff=round(abs($date2 - $date1) / (60*60*24),0);
+
+    if($hourDiff>=31)
+    {
+      $date_before = date('Y-m-d',(strtotime ( '-31 day' , strtotime ( $date_to_select_jurnal) ) ));
+      $this->session->set_userdata('date_from_select_jurnal', $date_before);
+    }
+    
     if(isset($_POST['tutup_buku']))
     {
       $data = array(

@@ -5,7 +5,7 @@
       <?php
       $level_user_id = $this->session->userdata('level_user_id');
 
-      $disable_harga_jual = 'disabled';
+      $disable_harga_jual = "readonly='readonly'";
       if($level_user_id==1)
       {
         $disable_harga_jual = '';
