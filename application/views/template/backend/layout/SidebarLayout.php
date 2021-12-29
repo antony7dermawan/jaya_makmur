@@ -119,7 +119,7 @@ if($level_user_id==1 or $level_user_id==10)
             <?php
             }
 
-            if($level_user_id==10)
+            if($level_user_id==10 or $level_user_id==1)
             {
             ?>
             <li class="">
